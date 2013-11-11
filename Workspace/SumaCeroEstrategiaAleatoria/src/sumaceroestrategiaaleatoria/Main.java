@@ -10,6 +10,8 @@
  */
 package sumaceroestrategiaaleatoria;
 
+import javax.swing.table.TableColumn;
+
 /**
  *
  * @author osfprieto
@@ -32,12 +34,16 @@ public class Main extends javax.swing.JFrame {
 
         scrollPane = new javax.swing.JScrollPane();
         dataTable = new javax.swing.JTable();
-        buttonCalculateB = new javax.swing.JButton();
-        buttonCalculateA = new javax.swing.JButton();
-        spinnerQuantity = new javax.swing.JSpinner();
-        spinnerQuantity.setValue(2);
-        labelQuantity = new javax.swing.JLabel();
+        panelButtons = new javax.swing.JPanel();
         updateDataTableButton = new javax.swing.JButton();
+        spinnerQuantityB = new javax.swing.JSpinner();
+        spinnerQuantityB.setValue(4);
+        buttonCalculateA = new javax.swing.JButton();
+        buttonCalculateB = new javax.swing.JButton();
+        labelQuantityA = new javax.swing.JLabel();
+        labelQuantityCols = new javax.swing.JLabel();
+        spinnerQuantityA = new javax.swing.JSpinner();
+        spinnerQuantityA.setValue(4);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,50 +62,105 @@ public class Main extends javax.swing.JFrame {
         dataTable.setModel(new MyJTableModel());
         scrollPane.setViewportView(dataTable);
 
-        buttonCalculateB.setText("Calculate B");
-
-        buttonCalculateA.setText("Calculate A");
-
-        labelQuantity.setText("Strategies");
-        labelQuantity.setToolTipText("The number of strategies to define for the players");
-
-        updateDataTableButton.setText("Update");
+        updateDataTableButton.setText("Actualizar");
         updateDataTableButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateDataTableButtonActionPerformed(evt);
             }
         });
 
+        buttonCalculateA.setText("Calcular A");
+        buttonCalculateA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCalculateAActionPerformed(evt);
+            }
+        });
+
+        buttonCalculateB.setText("Calcular B");
+        buttonCalculateB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCalculateBActionPerformed(evt);
+            }
+        });
+
+        labelQuantityA.setText("Estrategias A");
+        labelQuantityA.setToolTipText("The number of strategies to define for the players");
+
+        labelQuantityCols.setText("Estrategias B");
+        labelQuantityCols.setToolTipText("The number of strategies to define for the players");
+
+        javax.swing.GroupLayout panelButtonsLayout = new javax.swing.GroupLayout(panelButtons);
+        panelButtons.setLayout(panelButtonsLayout);
+        panelButtonsLayout.setHorizontalGroup(
+            panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelButtonsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelButtonsLayout.createSequentialGroup()
+                        .addComponent(buttonCalculateB, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelButtonsLayout.createSequentialGroup()
+                        .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panelButtonsLayout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(spinnerQuantityA, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))
+                            .addGroup(panelButtonsLayout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addComponent(spinnerQuantityB, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)))
+                        .addGap(26, 26, 26))
+                    .addGroup(panelButtonsLayout.createSequentialGroup()
+                        .addComponent(labelQuantityA, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                        .addGap(6, 6, 6))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelButtonsLayout.createSequentialGroup()
+                        .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(buttonCalculateA, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                            .addComponent(updateDataTableButton, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))
+                        .addContainerGap())))
+            .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelButtonsLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(labelQuantityCols, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                    .addGap(22, 22, 22)))
+        );
+        panelButtonsLayout.setVerticalGroup(
+            panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelButtonsLayout.createSequentialGroup()
+                .addContainerGap(17, Short.MAX_VALUE)
+                .addComponent(labelQuantityA)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(spinnerQuantityA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(spinnerQuantityB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(updateDataTableButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonCalculateA)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonCalculateB))
+            .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelButtonsLayout.createSequentialGroup()
+                    .addGap(85, 85, 85)
+                    .addComponent(labelQuantityCols)
+                    .addContainerGap(150, Short.MAX_VALUE)))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonCalculateB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttonCalculateA)
-                    .addComponent(spinnerQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
-                    .addComponent(labelQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
-                    .addComponent(updateDataTableButton, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(97, Short.MAX_VALUE)
-                .addComponent(labelQuantity)
-                .addGap(18, 18, 18)
-                .addComponent(spinnerQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9)
-                .addComponent(updateDataTableButton)
-                .addGap(18, 18, 18)
-                .addComponent(buttonCalculateA)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonCalculateB)
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(panelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
         );
 
         pack();
@@ -108,6 +169,14 @@ public class Main extends javax.swing.JFrame {
 private void updateDataTableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDataTableButtonActionPerformed
     updateDataTable();
 }//GEN-LAST:event_updateDataTableButtonActionPerformed
+
+private void buttonCalculateAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCalculateAActionPerformed
+    Controller.maxForA(((MyJTableModel)dataTable.getModel()).getData());
+}//GEN-LAST:event_buttonCalculateAActionPerformed
+
+private void buttonCalculateBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCalculateBActionPerformed
+    Controller.maxForB(((MyJTableModel)dataTable.getModel()).getData());
+}//GEN-LAST:event_buttonCalculateBActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,27 +215,40 @@ private void updateDataTableButtonActionPerformed(java.awt.event.ActionEvent evt
     }
     
     public void updateDataTable(){
-        int n = ((Integer)spinnerQuantity.getValue()).intValue();
-    
-        System.out.print(((MyJTableModel)dataTable.getModel()).getN()+"->");
+        int newN = ((Integer)spinnerQuantityA.getValue()).intValue();
+        int newM = ((Integer)spinnerQuantityB.getValue()).intValue();
         
-        ((MyJTableModel)dataTable.getModel()).setN(n);
-        dataTable.setModel(dataTable.getModel());
         
-        System.out.println(((MyJTableModel)dataTable.getModel()).getN());
+        int prevN = ((MyJTableModel)dataTable.getModel()).getN();
+        int prevM = ((MyJTableModel)dataTable.getModel()).getM();
         
-        dataTable.repaint();
+        if(prevM<newM)
+            for(int i=prevM;i<newM;i++)
+                dataTable.addColumn(new TableColumn(i+1));
+        else if(newM<prevM)
+            for(int i=newM-1;i>=prevM;i--)
+                dataTable.removeColumn(dataTable.getColumn(i));
+                //dataTable.getColumn(i).setWidth(1);
+                //dataTable.getColumn(i).setMaxWidth(1);
         
-        spinnerQuantity.setValue(Math.max(n, 2));
+        ((MyJTableModel)dataTable.getModel()).setN(newN);
+        ((MyJTableModel)dataTable.getModel()).setM(newM);
+        
+        ((MyJTableModel)dataTable.getModel()).fireTableStructureChanged();
+        spinnerQuantityA.setValue(Math.max(newN, 2));
+        spinnerQuantityB.setValue(Math.max(newM, 2));
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCalculateA;
     private javax.swing.JButton buttonCalculateB;
     private javax.swing.JTable dataTable;
-    private javax.swing.JLabel labelQuantity;
+    private javax.swing.JLabel labelQuantityA;
+    private javax.swing.JLabel labelQuantityCols;
+    private javax.swing.JPanel panelButtons;
     private javax.swing.JScrollPane scrollPane;
-    private javax.swing.JSpinner spinnerQuantity;
+    private javax.swing.JSpinner spinnerQuantityA;
+    private javax.swing.JSpinner spinnerQuantityB;
     private javax.swing.JButton updateDataTableButton;
     // End of variables declaration//GEN-END:variables
 }
