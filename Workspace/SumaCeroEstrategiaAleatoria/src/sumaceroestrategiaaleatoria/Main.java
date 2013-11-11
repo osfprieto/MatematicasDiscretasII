@@ -218,23 +218,11 @@ private void buttonCalculateBActionPerformed(java.awt.event.ActionEvent evt) {//
         int newN = ((Integer)spinnerQuantityA.getValue()).intValue();
         int newM = ((Integer)spinnerQuantityB.getValue()).intValue();
         
-        
-        int prevN = ((MyJTableModel)dataTable.getModel()).getN();
-        int prevM = ((MyJTableModel)dataTable.getModel()).getM();
-        
-        if(prevM<newM)
-            for(int i=prevM;i<newM;i++)
-                dataTable.addColumn(new TableColumn(i+1));
-        else if(newM<prevM)
-            for(int i=newM-1;i>=prevM;i--)
-                dataTable.removeColumn(dataTable.getColumn(i));
-                //dataTable.getColumn(i).setWidth(1);
-                //dataTable.getColumn(i).setMaxWidth(1);
-        
         ((MyJTableModel)dataTable.getModel()).setN(newN);
         ((MyJTableModel)dataTable.getModel()).setM(newM);
         
         ((MyJTableModel)dataTable.getModel()).fireTableStructureChanged();
+        
         spinnerQuantityA.setValue(Math.max(newN, 2));
         spinnerQuantityB.setValue(Math.max(newM, 2));
     }
