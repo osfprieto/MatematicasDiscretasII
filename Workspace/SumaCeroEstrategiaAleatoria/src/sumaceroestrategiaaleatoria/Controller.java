@@ -23,23 +23,8 @@ public class Controller {
         }
         else{
             
-            for(int i=0;i<doubleData.length;i++){
-                for(int j=0;j<doubleData[0].length;j++){
-                    System.out.print(doubleData[i][j]+"\t");
-                }
-                System.out.println();
-            }
-            
-            System.out.println("----------------------");
-            
-            doubleData = quitarDominadas(doubleData);
-            
-            for(int i=0;i<doubleData.length;i++){
-                for(int j=0;j<doubleData[0].length;j++){
-                    System.out.print(doubleData[i][j]+"\t");
-                }
-                System.out.println();
-            }
+            doubleData = quitarDominadas(doubleData, true);
+            doubleData = quitarDominadas(doubleData, false);
             
             Simplex simplex = solveWithSimplex(doubleData);
             
@@ -57,7 +42,8 @@ public class Controller {
             //Mostrar que tiene que usar la estrategia guardada en puntoSilla[]
         }
         else{
-            doubleData = quitarDominadas(doubleData);
+            doubleData = quitarDominadas(doubleData, true);
+            doubleData = quitarDominadas(doubleData, false);
             
             Simplex simplex = solveWithSimplex(doubleData);
             
@@ -84,9 +70,8 @@ public class Controller {
     }
     
     /*Quita filas dominadas y columnas dominadas hasta que no se puede*/
-    public static double[][] quitarDominadas(double[][] data){
+    public static double[][] quitarDominadas(double[][] data, boolean quitandoFilas){
         
-        boolean quitandoFilas = true;
         boolean eliminada = true;
         
         while(eliminada){
