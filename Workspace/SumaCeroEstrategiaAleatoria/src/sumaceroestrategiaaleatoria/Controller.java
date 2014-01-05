@@ -4,8 +4,11 @@
  */
 package sumaceroestrategiaaleatoria;
 
-import java.util.Arrays;
+import java.awt.BorderLayout;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTable;
 
 /**
  *
@@ -13,13 +16,18 @@ import javax.swing.JOptionPane;
  */
 public class Controller {
     
-    public static void maxForA(Object data[][]){
+    public static void calcular(Object data[][]){
         double doubleData[][] = fromObjToDouble(data);
         
         int puntoSilla[] = hallarPuntoSilla(doubleData);
                 
         if(puntoSilla!=null){//Esa es la solución
             //Mostrar que tiene que usar la estrategia guardada en puntoSilla[]
+            JOptionPane.showMessageDialog(null,
+                    "Usar la alternativa en la fila "+(puntoSilla[0]+1)
+                    +"\nUsar la alternativa en la fila "+(puntoSilla[1]+1)
+                    +"\nEsperar resultados de "+doubleData[puntoSilla[0]][puntoSilla[1]]
+                    , "Punto de silla", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
             
@@ -28,27 +36,9 @@ public class Controller {
             
             Simplex simplex = Simplex.createSimplex(doubleData);
             
-            showAnswer(simplex.primal());
+            showAnswer(simplex, doubleData);
         }
         
-    }
-    
-    public static void maxForB(Object data[][]){
-        double doubleData[][] = fromObjToDouble(data);
-        
-        int puntoSilla[] = hallarPuntoSilla(doubleData);
-                
-        if(puntoSilla!=null){//Esa es la solución
-            //Mostrar que tiene que usar la estrategia guardada en puntoSilla[]
-        }
-        else{
-            doubleData = quitarDominadas(doubleData, true);
-            doubleData = quitarDominadas(doubleData, false);
-            
-            Simplex simplex = Simplex.createSimplex(doubleData);
-            
-            showAnswer(simplex.dual());
-        }
     }
     
     public static double[][] fromObjToDouble(Object[][] data){
@@ -238,11 +228,26 @@ public class Controller {
         
     }
     
-    public static void showAnswer(double answer[]){
+    public static void showAnswer(Simplex simplex, double data[][]){
     
-        JOptionPane.showMessageDialog(null, Arrays.toString(answer), "Answer",
-                JOptionPane.INFORMATION_MESSAGE);
-        
+        try{
+            MyOutputJTableModel model = new MyOutputJTableModel(simplex, data);
+
+            JTable table = new JTable(model);
+            
+            JPanel panel = new JPanel();
+            panel.setLayout(new BorderLayout());
+            
+            panel.add(new JLabel("Solución encontrada:"), BorderLayout.NORTH);
+            panel.add(table, BorderLayout.CENTER);
+            panel.setSize(200, 200);
+            
+            JOptionPane.showMessageDialog(null, panel, "Distribución probabilística",
+                    JOptionPane.PLAIN_MESSAGE);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Problema irrestricto."
+                    + "soluciones infinitas", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
     
 }

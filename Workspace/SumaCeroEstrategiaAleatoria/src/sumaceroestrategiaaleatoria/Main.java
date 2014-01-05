@@ -38,8 +38,7 @@ public class Main extends javax.swing.JFrame {
         updateDataTableButton = new javax.swing.JButton();
         spinnerQuantityB = new javax.swing.JSpinner();
         spinnerQuantityB.setValue(4);
-        buttonCalculateA = new javax.swing.JButton();
-        buttonCalculateB = new javax.swing.JButton();
+        buttonCalculate = new javax.swing.JButton();
         labelQuantityA = new javax.swing.JLabel();
         labelQuantityCols = new javax.swing.JLabel();
         spinnerQuantityA = new javax.swing.JSpinner();
@@ -59,7 +58,7 @@ public class Main extends javax.swing.JFrame {
             }
         ));
         dataTable.getTableHeader().setReorderingAllowed(false);
-        dataTable.setModel(new MyJTableModel());
+        dataTable.setModel(new sumaceroestrategiaaleatoria.MyJTableModel());
         scrollPane.setViewportView(dataTable);
 
         updateDataTableButton.setText("Actualizar");
@@ -69,17 +68,10 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        buttonCalculateA.setText("Calcular A");
-        buttonCalculateA.addActionListener(new java.awt.event.ActionListener() {
+        buttonCalculate.setText("Calcular");
+        buttonCalculate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCalculateAActionPerformed(evt);
-            }
-        });
-
-        buttonCalculateB.setText("Calcular B");
-        buttonCalculateB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCalculateBActionPerformed(evt);
+                buttonCalculateActionPerformed(evt);
             }
         });
 
@@ -96,9 +88,6 @@ public class Main extends javax.swing.JFrame {
             .addGroup(panelButtonsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelButtonsLayout.createSequentialGroup()
-                        .addComponent(buttonCalculateB, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelButtonsLayout.createSequentialGroup()
                         .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelButtonsLayout.createSequentialGroup()
@@ -113,35 +102,27 @@ public class Main extends javax.swing.JFrame {
                         .addGap(6, 6, 6))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelButtonsLayout.createSequentialGroup()
                         .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(buttonCalculateA, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                            .addComponent(buttonCalculate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
                             .addComponent(updateDataTableButton, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))
-                        .addContainerGap())))
-            .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelButtonsLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(labelQuantityCols, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
-                    .addGap(22, 22, 22)))
+                        .addContainerGap())
+                    .addComponent(labelQuantityCols, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)))
         );
         panelButtonsLayout.setVerticalGroup(
             panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelButtonsLayout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(labelQuantityA)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(spinnerQuantityA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(12, 12, 12)
+                .addComponent(labelQuantityCols)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(spinnerQuantityB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(updateDataTableButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonCalculateA)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonCalculateB))
-            .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelButtonsLayout.createSequentialGroup()
-                    .addGap(85, 85, 85)
-                    .addComponent(labelQuantityCols)
-                    .addContainerGap(150, Short.MAX_VALUE)))
+                .addComponent(buttonCalculate)
+                .addGap(36, 36, 36))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -157,10 +138,10 @@ public class Main extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(panelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -170,13 +151,9 @@ private void updateDataTableButtonActionPerformed(java.awt.event.ActionEvent evt
     updateDataTable();
 }//GEN-LAST:event_updateDataTableButtonActionPerformed
 
-private void buttonCalculateAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCalculateAActionPerformed
-    Controller.maxForA(((MyJTableModel)dataTable.getModel()).getData());
-}//GEN-LAST:event_buttonCalculateAActionPerformed
-
-private void buttonCalculateBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCalculateBActionPerformed
-    Controller.maxForB(((MyJTableModel)dataTable.getModel()).getData());
-}//GEN-LAST:event_buttonCalculateBActionPerformed
+private void buttonCalculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCalculateActionPerformed
+    Controller.calcular(((MyJTableModel)dataTable.getModel()).getData());
+}//GEN-LAST:event_buttonCalculateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -228,8 +205,7 @@ private void buttonCalculateBActionPerformed(java.awt.event.ActionEvent evt) {//
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonCalculateA;
-    private javax.swing.JButton buttonCalculateB;
+    private javax.swing.JButton buttonCalculate;
     private javax.swing.JTable dataTable;
     private javax.swing.JLabel labelQuantityA;
     private javax.swing.JLabel labelQuantityCols;
