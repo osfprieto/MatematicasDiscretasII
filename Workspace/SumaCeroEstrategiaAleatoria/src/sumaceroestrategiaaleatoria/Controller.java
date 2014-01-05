@@ -83,7 +83,7 @@ public class Controller {
                 int i=0;
                 
                 while(i<data.length){
-                    if(filaNoPositiva(data, i)){
+                    if(filaDominada(data, i)){
                         data = quitarFila(data, i);
                         eliminada = true;
                     }
@@ -98,7 +98,7 @@ public class Controller {
                 int j=0;
                 
                 while(j<data[0].length){
-                    if(columnaNoPositiva(data, j)){
+                    if(columnaDominada(data, j)){
                         data = quitarColumna(data, j);
                         eliminada = true;
                     }
@@ -112,6 +112,48 @@ public class Controller {
         }
         
         return data;
+        
+    }
+    
+    public static boolean filaDominada(double data[][], int fila){
+        
+        for(int i=0;i<data.length;i++){
+            if(i!=fila && filaDominadaPorFila(data, fila, i)){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    public static boolean filaDominadaPorFila(double data[][], int fila, int filaQueDomina){
+        for(int j=0;j<data[fila].length;j++){
+            if(data[fila][j]>data[filaQueDomina][j]){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public static boolean columnaDominada(double data[][], int columna){
+        
+        for(int j=0;j<data[0].length;j++){
+            if(j!=columna && columnaDominadaPorColumna(data, columna, j)){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    public static boolean columnaDominadaPorColumna(double data[][], int columna, int columnaQueDomina){
+        
+        for(int i=0;i<data.length;i++){
+            if(data[i][columna]>data[i][columnaQueDomina]){
+                return false;
+            }
+        }
+        return true;
         
     }
     
@@ -138,24 +180,6 @@ public class Controller {
         }
         
         return newData;
-    }
-    
-    public static boolean filaNoPositiva(double[][] data, int i){
-        for(int j=0;j<data[0].length;j++){
-            if(data[i][j]>0){
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    public static boolean columnaNoPositiva(double[][] data, int j){
-        for(int i=0;i<data.length;i++){
-            if(data[i][j]>0){
-                return false;
-            }
-        }
-        return true;
     }
     
     /*Retorna la ubicación del punto silla si lo hay, sino retorna nulo*/
