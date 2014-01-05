@@ -6,7 +6,6 @@ package sumaceroestrategiaaleatoria;
 
 import java.util.Arrays;
 import javax.swing.JOptionPane;
-import sun.security.util.Length;
 
 /**
  *
@@ -23,7 +22,24 @@ public class Controller {
             //Mostrar que tiene que usar la estrategia guardada en puntoSilla[]
         }
         else{
+            
+            for(int i=0;i<doubleData.length;i++){
+                for(int j=0;j<doubleData[0].length;j++){
+                    System.out.print(data[i][j]+"\t");
+                }
+                System.out.println();
+            }
+            
+            System.out.println("----------------------");
+            
             doubleData = quitarDominadas(doubleData);
+            
+            for(int i=0;i<doubleData.length;i++){
+                for(int j=0;j<doubleData[0].length;j++){
+                    System.out.print(data[i][j]+"\t");
+                }
+                System.out.println();
+            }
             
             Simplex simplex = solveWithSimplex(doubleData);
             
@@ -71,26 +87,36 @@ public class Controller {
     public static double[][] quitarDominadas(double[][] data){
         
         boolean quitandoFilas = true;
-        boolean quitoAlgo = true;
+        boolean eliminada = true;
         
-        while(quitoAlgo){
-            quitoAlgo = false;
+        while(eliminada){
+            eliminada = false;
             if(quitandoFilas){
                 
-                for(int i=0;i<data.length;i++){
-                    if(filaNoPositiva(data, i)){//Fila dominada
+                int i=0;
+                
+                while(i<data.length){
+                    if(filaNoPositiva(data, i)){
                         data = quitarFila(data, i);
-                        quitoAlgo = true;
+                        eliminada = true;
+                    }
+                    else{
+                        i++;
                     }
                 }
                 
                 quitandoFilas = false;
             }else{
+               
+                int j=0;
                 
-                for(int j=0;j<data[0].length;j++){
-                    if(columnaNoPositiva(data, j)){//Columna dominada
+                while(j<data[0].length){
+                    if(columnaNoPositiva(data, j)){
                         data = quitarColumna(data, j);
-                        quitoAlgo = true;
+                        eliminada = true;
+                    }
+                    else{
+                        j++;
                     }
                 }
                 
