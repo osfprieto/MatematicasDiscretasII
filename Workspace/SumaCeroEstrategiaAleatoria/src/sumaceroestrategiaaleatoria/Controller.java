@@ -15,17 +15,38 @@ import sun.security.util.Length;
 public class Controller {
     
     public static void maxForA(Object data[][]){
-
-        Simplex simplex = solveWithSimplex(data);
-        showAnswer(simplex.primal());
+        double doubleData[][] = fromObjToDouble(data);
+        
+        int puntoSilla[] = hallarPuntoSilla(doubleData);
+                
+        if(puntoSilla!=null){//Esa es la solución
+            //Mostrar que tiene que usar la estrategia guardada en puntoSilla[]
+        }
+        else{
+            doubleData = quitarDominadas(doubleData);
+            
+            Simplex simplex = solveWithSimplex(doubleData);
+            
+            showAnswer(simplex.primal());
+        }
         
     }
     
     public static void maxForB(Object data[][]){
+        double doubleData[][] = fromObjToDouble(data);
         
-        Simplex simplex = solveWithSimplex(data);
-        showAnswer(simplex.dual());
-        
+        int puntoSilla[] = hallarPuntoSilla(doubleData);
+                
+        if(puntoSilla!=null){//Esa es la solución
+            //Mostrar que tiene que usar la estrategia guardada en puntoSilla[]
+        }
+        else{
+            doubleData = quitarDominadas(doubleData);
+            
+            Simplex simplex = solveWithSimplex(doubleData);
+            
+            showAnswer(simplex.dual());
+        }
     }
     
     public static double[][] fromObjToDouble(Object[][] data){
@@ -46,48 +67,146 @@ public class Controller {
         return newData;
     }
     
-    public static Simplex solveWithSimplex(Object data[][]){
-        double doubleData[][] = fromObjToDouble(data);
-        int n = doubleData.length;
-        int m = doubleData[0].length;
-        int N = n+1;
-        int M = m+1;
+    /*Quita filas dominadas y columnas dominadas hasta que no se puede*/
+    public static double[][] quitarDominadas(double[][] data){
         
-        double A[][] = new double[N][M];
-        double b[] = new double[N];
-        double c[] = new double[M];
+        boolean quitandoFilas = true;
+        boolean quitoAlgo = true;
         
-        for(int i=0;i<n;i++)
-            for(int j=0;j<n;j++)
-                A[i][j] = doubleData[i][j];
+        while(quitoAlgo){
+            quitoAlgo = false;
+            if(quitandoFilas){
+                
+                for(int i=0;i<data.length;i++){
+                    if(filaNoPositiva(data, i)){//Fila dominada
+                        data = quitarFila(data, i);
+                        quitoAlgo = true;
+                    }
+                }
+                
+                quitandoFilas = false;
+            }else{
+                
+                for(int j=0;j<data[0].length;j++){
+                    if(columnaNoPositiva(data, j)){//Columna dominada
+                        data = quitarColumna(data, j);
+                        quitoAlgo = true;
+                    }
+                }
+                
+                quitandoFilas = true;
+            }
+        }
         
-        for(int i=0;i<N;i++)
-            if(i==n)
-                A[i][m] = 0;
-            else
-                A[i][m] = -1;
+        return data;
         
-        for(int j=0;j<M;j++)
-            if(j==m)
-                A[n][j] = 0;
-            else
-                A[n][j] = 1;
+    }
+    
+    public static double[][] quitarFila(double data[][], int fila){
+    
+        double newData[][] = new double[data.length-1][data[0].length];
         
-        for(int i=0;i<N;i++)
-            if(i==n)
-                b[i] = 1;
-            else
-                b[i] = 0;
+        for(int i=0;i<newData.length;i++){
+            for(int j=0;j<newData[0].length;j++){
+                newData[i][j] = data[i<fila?i:i+1][j];
+            }
+        }
         
-        for(int j=0;j<M;j++)
-            if(j==m)
-                c[j] = 1;
-            else
-                c[j] = 0;
+        return newData;
+    }
+    
+    public static double[][] quitarColumna(double data[][], int columna){
+        double newData[][] = new double[data.length][data[0].length-1];
+        
+        for(int i=0;i<newData.length;i++){
+            for(int j=0;j<newData[0].length;j++){
+                newData[i][j] = data[i][j<columna?j:j+1];
+            }
+        }
+        
+        return newData;
+    }
+    
+    public static boolean filaNoPositiva(double[][] data, int i){
+        for(int j=0;j<data[0].length;j++){
+            if(data[i][j]>0){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public static boolean columnaNoPositiva(double[][] data, int j){
+        for(int i=0;i<data.length;i++){
+            if(data[i][j]>0){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /*Retorna la ubicación del punto silla si lo hay, sino retorna nulo*/
+    public static int[] hallarPuntoSilla(double data[][]){
+        
+        //Hallar mínimo de máximos por columnas
+        
+        double minimoMaximosColumna = Double.MAX_VALUE;
+        
+        for(int j=0;j<data[0].length;j++){
+            double tempMax = Double.MIN_VALUE;
+            for(int i=0;i<data.length;i++){
+                if(data[i][j]>tempMax){
+                    tempMax = data[i][j];
+                }
+            }
+            if(tempMax<minimoMaximosColumna){
+                minimoMaximosColumna = tempMax;
+            }
+        }
+        
+        //Hallar máximo de mínimos por fila
+        
+        double maximoMinimosFila = Double.MIN_VALUE;
+        
+        for(int i=0;i<data.length;i++){
+            double tempMin = Double.MAX_VALUE;
+            for(int j=0;j<data[0].length;j++){
+                if(data[i][j]<tempMin){
+                    tempMin = data[i][j];
+                }
+            }
+            if(tempMin>maximoMinimosFila){
+                maximoMinimosFila = tempMin;
+            }
+        }
+        
+        //Hay punto silla
+        if(maximoMinimosFila == minimoMaximosColumna){
+            int ubicacion[] = {-1, -1};
+            double puntoSilla = maximoMinimosFila;
+            for(int i=0;i<data.length;i++){
+                for(int j=0;j<data[i].length;j++){
+                    if(data[i][j]==puntoSilla){
+                       ubicacion[0] = i;
+                       ubicacion[1] = j;
+                       
+                    }
+                }
+            }
+            return ubicacion;
+        }
+        else{
+            return null;
+        }
+        
+    }
+    
+    public static Simplex solveWithSimplex(double data[][]){
         
         
-        return new Simplex(A, b, c);
         
+        
+        return null;
     }
     
     public static void showAnswer(double answer[]){
