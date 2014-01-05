@@ -70,8 +70,9 @@ public class Controller {
     }
     
     /*Quita filas dominadas y columnas dominadas hasta que no se puede*/
-    public static double[][] quitarDominadas(double[][] data, boolean quitandoFilas){
+    public static double[][] quitarDominadas(double[][] data, boolean empezarConFilas){
         
+        boolean quitandoFilas = empezarConFilas;
         boolean eliminada = true;
         
         while(eliminada){
