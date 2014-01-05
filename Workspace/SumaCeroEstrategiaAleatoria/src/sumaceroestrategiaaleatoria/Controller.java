@@ -25,7 +25,7 @@ public class Controller {
             
             for(int i=0;i<doubleData.length;i++){
                 for(int j=0;j<doubleData[0].length;j++){
-                    System.out.print(data[i][j]+"\t");
+                    System.out.print(doubleData[i][j]+"\t");
                 }
                 System.out.println();
             }
@@ -36,7 +36,7 @@ public class Controller {
             
             for(int i=0;i<doubleData.length;i++){
                 for(int j=0;j<doubleData[0].length;j++){
-                    System.out.print(data[i][j]+"\t");
+                    System.out.print(doubleData[i][j]+"\t");
                 }
                 System.out.println();
             }
@@ -90,6 +90,7 @@ public class Controller {
         boolean eliminada = true;
         
         while(eliminada){
+            //System.out.println("Eliminando");
             eliminada = false;
             if(quitandoFilas){
                 
