@@ -31,7 +31,7 @@ public class Simplex {
 
     private int[] basis;    // basis[i] = basic variable corresponding to row i
                             // only needed to print out solution, not book
-
+    
     // sets up the simplex tableaux
     public Simplex(double[][] A, double[] b, double[] c) {
         M = b.length;
@@ -236,4 +236,19 @@ public class Simplex {
         StdOut.println();
     }
 
+    public static Simplex createSimplex(double[][] data){
+        double c[] = new double[data[0].length];
+        
+        for(int i=0;i<c.length;i++){
+            c[i] = 1.0;
+        }
+        
+        double b[] = new double[data.length];
+        
+        for(int i=0;i<b.length;i++){
+            b[i] = 1.0;
+        }
+        return new Simplex(data, b, c);
+    }
+    
 }

@@ -26,7 +26,7 @@ public class Controller {
             doubleData = quitarDominadas(doubleData, true);
             doubleData = quitarDominadas(doubleData, false);
             
-            Simplex simplex = solveWithSimplex(doubleData);
+            Simplex simplex = Simplex.createSimplex(doubleData);
             
             showAnswer(simplex.primal());
         }
@@ -45,7 +45,7 @@ public class Controller {
             doubleData = quitarDominadas(doubleData, true);
             doubleData = quitarDominadas(doubleData, false);
             
-            Simplex simplex = solveWithSimplex(doubleData);
+            Simplex simplex = Simplex.createSimplex(doubleData);
             
             showAnswer(simplex.dual());
         }
@@ -236,14 +236,6 @@ public class Controller {
             return null;
         }
         
-    }
-    
-    public static Simplex solveWithSimplex(double data[][]){
-        
-        
-        
-        
-        return null;
     }
     
     public static void showAnswer(double answer[]){
