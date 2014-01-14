@@ -25,7 +25,7 @@ public class Controller {
             //Mostrar que tiene que usar la estrategia guardada en puntoSilla[]
             JOptionPane.showMessageDialog(null,
                     "Usar la alternativa en la fila "+(puntoSilla[0]+1)
-                    +"\nUsar la alternativa en la fila "+(puntoSilla[1]+1)
+                    +"\nUsar la alternativa en la columna "+(puntoSilla[1]+1)
                     +"\nEsperar resultados de "+doubleData[puntoSilla[0]][puntoSilla[1]]
                     , "Punto de silla", JOptionPane.INFORMATION_MESSAGE);
         }
